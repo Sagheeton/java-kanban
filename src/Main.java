@@ -9,19 +9,19 @@ public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
 
-        Task task1 = taskManager.createTask(new Task("Задача 1", "Первая задача"));
-        Task task2 = taskManager.createTask(new Task("Задача 2", "Вторая задача"));
+        Task task1 = taskManager.createTask(new Task("Задача 1", "Первая задача", ProgressStatus.NEW));
+        Task task2 = taskManager.createTask(new Task("Задача 2", "Вторая задача", ProgressStatus.NEW));
 
         Epic epicWithTwoSubtaks = taskManager.createEpic(
                 new Epic("Эпик для двух подзадач", "У этого эпика будет две подзадачи")
         );
         Subtask subtask1 = taskManager.createSubtask(
                 new Subtask("Подзадача 1", "Первая подзадача для эпика с двумя подзадачами",
-                epicWithTwoSubtaks.getId())
+                        ProgressStatus.NEW, epicWithTwoSubtaks.getId())
         );
         Subtask subtask2 = taskManager.createSubtask(
                 new Subtask("Подзадача 2", "Вторая подзадача для эпика с двумя подзадачами",
-                epicWithTwoSubtaks.getId())
+                        ProgressStatus.NEW, epicWithTwoSubtaks.getId())
         );
 
         Epic epicWithOneSubtask = taskManager.createEpic(
@@ -29,16 +29,21 @@ public class Main {
         );
         Subtask onlySubtask = taskManager.createSubtask(
                 new Subtask("Подзадача", "Единственная подзадача эпика с одной подзадачей",
-                epicWithOneSubtask.getId())
+                        ProgressStatus.NEW, epicWithOneSubtask.getId())
         );
         System.out.println("Список созданных задач:");
         printThemAll(taskManager);
 
-        taskManager.updateTask(task1.withStatus(ProgressStatus.IN_PROGRESS));
-        taskManager.updateTask(task2.withStatus(ProgressStatus.DONE));
-        taskManager.updateSubtask(subtask1.withStatus(ProgressStatus.IN_PROGRESS));
-        taskManager.updateSubtask(subtask2.withStatus(ProgressStatus.DONE));
-        taskManager.updateSubtask(onlySubtask.withStatus(ProgressStatus.DONE));
+        task1.setStatus(ProgressStatus.IN_PROGRESS);
+        taskManager.updateTask(task1);
+        task2.setStatus(ProgressStatus.DONE);
+        taskManager.updateTask(task2);
+        subtask1.setStatus(ProgressStatus.IN_PROGRESS);
+        taskManager.updateSubtask(subtask1);
+        subtask2.setStatus(ProgressStatus.DONE);
+        taskManager.updateSubtask(subtask2);
+        onlySubtask.setStatus(ProgressStatus.DONE);
+        taskManager.updateSubtask(onlySubtask);
 
         System.out.println("Список обновленных задач:");
         printThemAll(taskManager);

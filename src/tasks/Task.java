@@ -1,17 +1,21 @@
 package tasks;
 
 public class Task {
-    private final int id;
-    private final String name;
-    private final String description;
-    private final ProgressStatus status;
-
-    public Task(String name, String description) {
-        this(0, name, description, ProgressStatus.NEW);
-    }
+    protected final int id;
+    protected String name;
+    protected String description;
+    protected ProgressStatus status;
 
     Task(Task task, int id) {
         this(id, task.name, task.description, task.status);
+    }
+
+    public Task(Task task) {
+        this(task.id, task.name, task.description, task.status);
+    }
+
+    public Task(String name, String description, ProgressStatus status) {
+        this(0, name, description, status);
     }
 
     protected Task(int id, String name, String description, ProgressStatus status) {
@@ -21,32 +25,32 @@ public class Task {
         this.status = status;
     }
 
-    public Task withName(String newName) {
-        return new Task(id, newName, description, status);
-    }
-
-    public Task withDescription(String newDescription) {
-        return new Task(id, name, newDescription, status);
-    }
-
-    public Task withStatus(ProgressStatus newStatus) {
-        return new Task(id, name, description, newStatus);
-    }
-
     public int getId() {
         return id;
-    }
-
-    public ProgressStatus getStatus() {
-        return status;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ProgressStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProgressStatus status) {
+        this.status = status;
     }
 
     @Override
