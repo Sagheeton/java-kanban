@@ -6,7 +6,7 @@ public class Task {
     protected String description;
     protected ProgressStatus status;
 
-    Task(Task task, int id) {
+    public Task(Task task, int id) {
         this(id, task.name, task.description, task.status);
     }
 

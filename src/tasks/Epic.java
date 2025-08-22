@@ -1,13 +1,14 @@
 package tasks;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
     private final ArrayList<Integer> subtaskIds;
     private int newSubtasksCounter;
     private int doneSubtasksCounter;
 
-    Epic(Epic epic, int id) {
+    public Epic(Epic epic, int id) {
         this(id, epic.getName(), epic.getDescription(), ProgressStatus.NEW, new ArrayList<>(), 0, 0);
     }
 
@@ -27,39 +28,39 @@ public class Epic extends Task {
         this.doneSubtasksCounter = doneSubtasksCounter;
     }
 
-    public ArrayList<Integer> getSubtaskIds() {
+    public List<Integer> getSubtaskIds() {
         return new ArrayList<>(this.subtaskIds);
     }
 
-    int getNewSubtasksCounter() {
+    public int getNewSubtasksCounter() {
         return newSubtasksCounter;
     }
 
-    int getDoneSubtasksCounter() {
+    public int getDoneSubtasksCounter() {
         return doneSubtasksCounter;
     }
 
-    void removeAllSubtaskIds() {
+    public void removeAllSubtaskIds() {
         subtaskIds.clear();
         newSubtasksCounter = 0;
         doneSubtasksCounter = 0;
     }
 
-    void addSubtaskId(int subtaskId, ProgressStatus status) {
-        if (!subtaskIds.contains(subtaskId)) {
+    public void addSubtaskId(int subtaskId, ProgressStatus status) {
+        if (!subtaskIds.contains(subtaskId) && subtaskId != id) {
             subtaskIds.add(subtaskId);
             increaseStatusCounter(status);
         }
     }
 
-    void removeSubtaskId(int subtaskId, ProgressStatus status) {
+    public void removeSubtaskId(int subtaskId, ProgressStatus status) {
         boolean removed = subtaskIds.remove(Integer.valueOf(subtaskId));
         if (removed) {
             decreaseStatusCounter(status);
         }
     }
 
-    void handleSubtaskStatusChange(ProgressStatus oldStatus, ProgressStatus newStatus) {
+    public void handleSubtaskStatusChange(ProgressStatus oldStatus, ProgressStatus newStatus) {
         if (oldStatus == newStatus) return;
         decreaseStatusCounter(oldStatus);
         increaseStatusCounter(newStatus);
