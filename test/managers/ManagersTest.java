@@ -10,7 +10,6 @@ class ManagersTest {
     @Test
     void shouldCreateInitializedTaskManager() {
         TaskManager manager = Managers.getDefault();
-        manager.getTasksHistoryList().clear();
 
         assertNotNull(manager, "Managers.getDefault() вернул null — менеджер не создан");
         assertNotNull(manager.getTasks(), "Список задач не инициализирован (getTasks() вернул null)");
@@ -32,7 +31,6 @@ class ManagersTest {
     @Test
     void shouldCreateInitializedHistoryManager() {
         HistoryManager history = Managers.getDefaultHistory();
-        history.getHistory().clear();
 
         assertNotNull(history, "Managers.getDefaultHistory() вернул null — менеджер истории не создан");
         assertNotNull(history.getHistory(), "Список истории не инициализирован (getHistory() вернул null)");

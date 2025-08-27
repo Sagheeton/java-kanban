@@ -15,7 +15,7 @@ class InMemoryTaskManager implements TaskManager {
     private final Map<Integer, Subtask> subtasks = new HashMap<>();
     private final Map<Integer, Epic> epics = new HashMap<>();
     private int nextId = 1;
-    private static final HistoryManager historyManager = Managers.getDefaultHistory();
+    private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public Task createTask(Task task) {
@@ -227,6 +227,7 @@ class InMemoryTaskManager implements TaskManager {
         return epicSubtasks;
     }
 
+    @Override
     public List<Task> getTasksHistoryList() {
         return historyManager.getHistory();
     }
@@ -270,5 +271,4 @@ class InMemoryTaskManager implements TaskManager {
         LINK,
         UNLINK
     }
-
 }
